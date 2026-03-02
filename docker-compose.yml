@@ -1,0 +1,52 @@
+services:
+    nginx:
+        image: nginx:alpine
+        container_name: ule-nginx
+        restart: unless-stopped
+        ports:
+            - "8000:80"
+        volumes:
+            - ./:/var/www/html
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - php
+
+    php:
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+        image: php:7.4-fpm
+        container_name: ule-php
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www/html
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+        depends_on:
+            - mysql
+
+    mysql:
+        image: mysql:8.0
+        container_name: ule-mysql
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: '3129cI?o3xBLOIShz(0jv4dHH'
+            MYSQL_DATABASE: ule
+            MYSQL_USER: ule
+            MYSQL_PASSWORD: '3129cI?o3xBLOIShz(0jv4dHH'
+        volumes:
+            - mysql_data:/var/lib/mysql
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: ule-phpmyadmin
+        restart: unless-stopped
+        depends_on:
+            - mysql
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+        ports:
+            - "8080:80"
+
+volumes:
+    mysql_data:
