@@ -12,11 +12,6 @@ class Migration_Create_phone_verifications extends CI_Migration
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE,
 			],
-			'device' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255,
-				'null' => TRUE,
-			],
 			'phone' => [
 				'type' => 'VARCHAR',
 				'constraint' => 100,

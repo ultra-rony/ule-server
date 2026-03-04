@@ -10,6 +10,7 @@ class PhoneVerificationController extends CI_Controller
 		parent::__construct();
 		$this->currentTime = date('Y-m-d H:i:s');
 		$this->load->model('PhoneVerificationModel', 'phone_verification_model');
+        $this->load->model('UserModel', 'user_model');
         $this->load->library('callgate');
 	}
 
@@ -17,11 +18,10 @@ class PhoneVerificationController extends CI_Controller
 	{
         $body = json_decode(file_get_contents('php://input'), true) ?? [];
         $phoneNumber = $body['phone_number'] ?? null;
-        $device = $body['device'] ?? null;
-        if ($phoneNumber == null || $device == null) {
+        if ($phoneNumber == null) {
             $this->output->set_status_header(403)
 				->set_content_type('application/json')
-				->set_output(json_encode(['success' => false, 'message' => 'Invalid phone number or device'], JSON_UNESCAPED_UNICODE));
+				->set_output(json_encode(['success' => false, 'message' => 'Invalid phone number'], JSON_UNESCAPED_UNICODE));
 			return;
         }
 
@@ -35,7 +35,6 @@ class PhoneVerificationController extends CI_Controller
         }
         $data = [
             'id' => null,
-            'device' => json_encode($device, JSON_UNESCAPED_UNICODE),
             'phone' => $phoneNumber,
             'is_verification' => false,
             'callgate_create_response' => json_encode($callgateResult, JSON_UNESCAPED_UNICODE),
@@ -73,6 +72,7 @@ class PhoneVerificationController extends CI_Controller
             $callgateData = json_decode($callgateJson, true);
             $callgateId = $callgateData['result']['id'] ?? null;
 
+            // Проверка callgate
             $callgateCheckResult = $this->callgate->checkCall($callgateId);
 
             if ($callgateCheckResult != null && $callgateCheckResult['success'] == true) {
@@ -83,10 +83,26 @@ class PhoneVerificationController extends CI_Controller
                     'updated_at' => $this->currentTime,
                 ];
                 $this->phone_verification_model->setById($data);
+
+                $user = $this->user_model->getUserByPhoneNumber($phoneNumber);
+                // Создание нового пользователя
+                if ($user == null) {
+                    $user = [
+                        'id' => null,
+                        'phone' => $phoneNumber,
+                        'token' => bin2hex(random_bytes(36)),
+                        'created_ip' => $this->getClientIp(),
+                        'created_at' => $this->currentTime,
+                        'updated_at' => $this->currentTime,
+                    ];
+                    $user['id'] = $this->user_model->add($user);
+                }
+                $user = $this->user_model->getUserById($user['id']);
+
                 $this->output
                     ->set_status_header(200)
                     ->set_content_type('application/json')
-                    ->set_output(json_encode(['success' => true], JSON_UNESCAPED_UNICODE)); 
+                    ->set_output(json_encode(['success' => true, 'user' => $user], JSON_UNESCAPED_UNICODE)); 
                 return;
             }
         }

@@ -13,8 +13,7 @@ class Migration_Create_users extends CI_Migration
 				'auto_increment' => TRUE,
 			],
 			'device' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255,
+				'type' => 'JSON',
 				'null' => TRUE,
 			],
 			'email' => [
