@@ -98,6 +98,21 @@ class PhoneVerificationController extends CI_Controller
                     $user['id'] = $this->user_model->add($user);
                 }
                 $user = $this->user_model->getUserById($user['id']);
+                $user['is_verified'] = false;
+                if ($user['passport_series'] != null) {
+                    $user['is_verified'] = true;
+                }
+                $user['latitude'] = $user['latitude']  !== null ? (float)$user['latitude']  : null;
+                $user['longitude'] = $user['longitude'] !== null ? (float)$user['longitude'] : null;
+
+                unset($user['created_ip']);
+                unset($user['passport_series']);
+                unset($user['passport_number']);
+                unset($user['passport_issue_date']);
+                unset($user['passport_expiry_date']);
+                unset($user['passport_issued_by']);
+                unset($user['passport_department_code']);
+                unset($user['passport_image_url']);
 
                 $this->output
                     ->set_status_header(200)
