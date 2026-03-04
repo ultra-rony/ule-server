@@ -102,6 +102,7 @@ class PhoneVerificationController extends CI_Controller
                 if ($user['passport_series'] != null) {
                     $user['is_verified'] = true;
                 }
+                $user['id'] = (int)$user['id'];
                 $user['latitude'] = $user['latitude']  !== null ? (float)$user['latitude']  : null;
                 $user['longitude'] = $user['longitude'] !== null ? (float)$user['longitude'] : null;
 
