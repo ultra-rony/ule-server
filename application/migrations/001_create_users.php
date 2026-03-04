@@ -6,65 +6,115 @@ class Migration_Create_users extends CI_Migration
 
 	public function up()
 	{
-		$fields = array(
-			'id' => array(
+		$fields = [
+			'id' => [
 				'type' => 'BIGINT',
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE,
-			),
-			'device' => array(
+			],
+			'device' => [
 				'type' => 'VARCHAR',
-				'constraint' => '255',
+				'constraint' => 255,
 				'null' => TRUE,
-			),
-			'email' => array(
+			],
+			'email' => [
 				'type' => 'VARCHAR',
-				'constraint' => '255',
+				'constraint' => 255,
 				'null' => TRUE,
-				'unique' => TRUE,
-			),
-			'phone' => array(
+			],
+			'phone' => [
 				'type' => 'VARCHAR',
-				'constraint' => '100',
+				'constraint' => 100,
 				'null' => TRUE,
-			),
-			'firebase_token' => array(
+			],
+			'username' => [
 				'type' => 'VARCHAR',
-				'constraint' => '512',
+				'constraint' => 100,
 				'null' => TRUE,
-			),
-			'lang' => array(
+			],
+			'image_url' => [
+				'type' => 'TEXT',
+				'null' => TRUE,
+			],
+			'city' => [
 				'type' => 'VARCHAR',
-				'constraint' => '32',
-				'null' => TRUE,
-			),
-			'token' => array(
+				'constraint' => 255,
+				'null' => TRUE
+			],
+			'latitude' => [
+				'type' => 'DECIMAL',
+				'constraint' => '11,8',
+				'null' => TRUE
+			],
+			'longitude' => [
+				'type' => 'DECIMAL',
+				'constraint' => '11,8',
+				'null' => TRUE
+			],
+			'fcm_token' => [
 				'type' => 'VARCHAR',
-				'constraint' => '128',
+				'constraint' => 512,
 				'null' => TRUE,
-			),
-			'created_at' => array(
+			],
+			'passport_series' => [
+				'type' => 'VARCHAR',
+				'constraint' => 20,
+				'null' => TRUE
+			],
+			'passport_number' => [
+				'type' => 'VARCHAR',
+				'constraint' => 20,
+				'null' => TRUE
+			],
+			'passport_issue_date' => [
+				'type' => 'DATE',
+				'null' => TRUE
+			],
+			'passport_expiry_date' => [
+				'type' => 'DATE',
+				'null' => TRUE
+			],
+			'passport_issued_by' => [
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => TRUE
+			],
+			'passport_department_code' => [
+				'type' => 'VARCHAR',
+				'constraint' => 20,
+				'null' => TRUE
+			],
+			'passport_image_url' => [
+				'type' => '	TEXT',
+				'null' => TRUE
+			],
+			'token' => [
+				'type' => 'VARCHAR',
+				'constraint' => 128,
+				'null' => TRUE,
+			],
+			'created_at' => [
 				'type' => 'DATETIME',
 				'null' => TRUE,
-			),
-			'updated_at' => array(
+			],
+			'updated_at' => [
 				'type' => 'DATETIME',
 				'null' => TRUE,
-			),
-			'created_ip' => array(
+			],
+			'created_ip' => [
 				'type' => 'VARCHAR',
-				'constraint' => '128',
+				'constraint' => 128,
 				'null' => TRUE,
-			),
-		);
+			],
+		];
+
 		$this->dbforge->add_field($fields);
 
 		$this->dbforge->add_key('id', TRUE);
 		$this->dbforge->add_key('token');
+		$this->dbforge->add_key('phone', FALSE, TRUE);
 
 		$this->dbforge->create_table('users', TRUE, ['ENGINE' => 'InnoDB']);
-
-		$this->db->query('ALTER TABLE users ADD UNIQUE (`email`)');
 	}
 
 	public function down()
