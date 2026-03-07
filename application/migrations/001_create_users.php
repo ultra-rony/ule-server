@@ -55,38 +55,52 @@ class Migration_Create_users extends CI_Migration
 				'constraint' => 512,
 				'null' => TRUE,
 			],
-			'passport_series' => [
-				'type' => 'VARCHAR',
-				'constraint' => 20,
-				'null' => TRUE
-			],
-			'passport_number' => [
-				'type' => 'VARCHAR',
-				'constraint' => 20,
-				'null' => TRUE
-			],
-			'passport_issue_date' => [
-				'type' => 'DATE',
-				'null' => TRUE
-			],
-			'passport_expiry_date' => [
-				'type' => 'DATE',
-				'null' => TRUE
-			],
-			'passport_issued_by' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255,
-				'null' => TRUE
-			],
-			'passport_department_code' => [
-				'type' => 'VARCHAR',
-				'constraint' => 20,
-				'null' => TRUE
-			],
-			'passport_image_url' => [
-				'type' => '	TEXT',
-				'null' => TRUE
-			],
+            'last_name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => TRUE,
+            ],
+            'first_name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => TRUE,
+            ],
+            'middle_name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => TRUE,
+            ],
+            'series' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
+                'null'       => TRUE,
+            ],
+            'number' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
+                'null'       => TRUE,
+            ],
+            'issued_by' => [
+                'type' => 'TEXT',
+                'null' => TRUE,
+            ],
+            'issue_date' => [
+                'type' => 'DATE',
+                'null' => TRUE,
+            ],
+            'birth_date' => [
+                'type' => 'DATE',
+                'null' => TRUE,
+            ],
+            'birth_place' => [
+                'type' => 'TEXT',
+                'null' => TRUE,
+            ],
+            'passport_image' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => TRUE,
+            ],
 			'token' => [
 				'type' => 'VARCHAR',
 				'constraint' => 128,

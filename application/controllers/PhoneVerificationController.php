@@ -99,7 +99,7 @@ class PhoneVerificationController extends CI_Controller
                 }
                 $user = $this->user_model->getUserById($user['id']);
                 $user['is_verified'] = false;
-                if ($user['passport_series'] != null) {
+                if ($user['passport_image'] != null) {
                     $user['is_verified'] = true;
                 }
                 $user['id'] = (int)$user['id'];
@@ -107,13 +107,16 @@ class PhoneVerificationController extends CI_Controller
                 $user['longitude'] = $user['longitude'] !== null ? (float)$user['longitude'] : null;
 
                 unset($user['created_ip']);
-                unset($user['passport_series']);
-                unset($user['passport_number']);
-                unset($user['passport_issue_date']);
-                unset($user['passport_expiry_date']);
-                unset($user['passport_issued_by']);
-                unset($user['passport_department_code']);
-                unset($user['passport_image_url']);
+                unset($user['last_name']);
+                unset($user['first_name']);
+                unset($user['middle_name']);
+                unset($user['series']);
+                unset($user['number']);
+                unset($user['issued_by']);
+                unset($user['issue_date']);
+                unset($user['birth_date']);
+                unset($user['birth_place']);
+                unset($user['passport_image']);
 
                 $this->output
                     ->set_status_header(200)
