@@ -8,6 +8,8 @@ $route[$v1.'callgate/check'] = 'PhoneVerificationController/callgateCheck';
 $route[$v1.'users/update'] = 'UserController/updateUser';
 $route[$v1.'users/get'] = 'UserController/getUser';
 
+$route[$v1.'fileupload'] = 'FileUploadController';
+
 $route['migrate'] = 'migrate';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
