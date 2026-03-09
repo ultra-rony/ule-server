@@ -106,6 +106,7 @@ class UserController extends CI_Controller
         $user['id'] = (int)$user['id'];
         $user['latitude'] = $user['latitude']  !== null ? (float)$user['latitude']  : null;
         $user['longitude'] = $user['longitude'] !== null ? (float)$user['longitude'] : null;
+        $user['balance'] = (float)$user['balance'];
         unset($user['created_ip']);
         unset($user['last_name']);
         unset($user['first_name']);

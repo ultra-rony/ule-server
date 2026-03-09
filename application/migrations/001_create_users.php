@@ -16,6 +16,12 @@ class Migration_Create_users extends CI_Migration
 				'type' => 'JSON',
 				'null' => TRUE,
 			],
+			'balance' => [
+                'type' => 'DECIMAL',
+                'constraint' => '15,2',
+                'default' => 0,
+                'null' => FALSE
+            ],
 			'email' => [
 				'type' => 'VARCHAR',
 				'constraint' => 255,
