@@ -60,7 +60,7 @@ class YookassaPaymentController extends CI_Controller {
                 ),
                 'confirmation' => array(
                     'type' => 'redirect',
-                    'return_url' => 'https://appman.pro',
+                    'return_url' => 'https://ule1.ru',
                 ),
                 'metadata' => array(
                     'user_id' => $user['id'],
@@ -72,7 +72,7 @@ class YookassaPaymentController extends CI_Controller {
                     ],
                     'items' => [
                         [
-                            'description' => "Пополнение баланса ULE",
+                            'description' => "Пополнение баланса ULE1",
                             'quantity' => '1.00',
                             'amount' => [
                                 'value' => (float)$body['refill'],
@@ -85,7 +85,7 @@ class YookassaPaymentController extends CI_Controller {
                     ],
                 ],
                 'capture' => true,
-                'description' => "Пополнение баланса ULE",
+                'description' => "Пополнение баланса ULE1",
             ),
             $idempotenceKey
         );
