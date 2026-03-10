@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+/*
+|--------------------------------------------------------------------------
+| Yookassa
+|--------------------------------------------------------------------------
+*/
+
+$config['yookassa_secret_key'] = 'live_oHAgDH3MACHS0CReUGGUcUpD0B9G8WWbDnV_61qZMo0';
+$config['yookassa_shop_id'] = '1288851';
+$config['yookassa_webhook_key'] = '8b8bb453-ef07-4a33-baff-7ca2243e928b';
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

@@ -10,6 +10,9 @@ $route[$v1.'users/get'] = 'UserController/getUser';
 
 $route[$v1.'fileupload'] = 'FileUploadController';
 
+$route['webhook/yookassa'] = 'WebhookYookassaController/index';
+$route[$v1.'payment/yookassa'] = 'YookassaPaymentController';
+
 $route['migrate'] = 'migrate';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

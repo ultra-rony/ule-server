@@ -112,6 +112,10 @@ class Migration_Create_users extends CI_Migration
 				'constraint' => 128,
 				'null' => TRUE,
 			],
+			'first_deposit_at' => [
+				'type' => 'DATETIME',
+				'null' => TRUE,
+			],
 			'created_at' => [
 				'type' => 'DATETIME',
 				'null' => TRUE,
