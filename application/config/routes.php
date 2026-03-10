@@ -7,6 +7,7 @@ $route[$v1.'callgate/check'] = 'PhoneVerificationController/callgateCheck';
 
 $route[$v1.'users/update'] = 'UserController/updateUser';
 $route[$v1.'users/get'] = 'UserController/getUser';
+$route[$v1.'users/transactions'] = 'TransactionController/index';
 
 $route[$v1.'fileupload'] = 'FileUploadController';
 
