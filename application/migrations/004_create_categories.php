@@ -16,6 +16,10 @@ class Migration_Create_categories extends CI_Migration
                 'constraint' => 255,
                 'null' => FALSE,
             ],
+            'price_per_hour' => [
+                'type' => 'JSON',
+                'null' => TRUE,
+            ],
         ];
 
         $this->dbforge->add_field($fields);

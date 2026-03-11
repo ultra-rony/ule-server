@@ -36,7 +36,7 @@ class Migration_Create_orders extends CI_Migration
                 'type' => 'TEXT',
                 'null' => TRUE,
             ],
-            'image_url' => [
+            'image_urls' => [
                 'type' => 'TEXT',
                 'null' => TRUE,
             ],
@@ -73,6 +73,11 @@ class Migration_Create_orders extends CI_Migration
                 'default' => 1,
                 'null' => FALSE,
             ],
+            'status' => [
+				'type' => 'TINYINT',
+				'constraint' => '1',
+                'default' => 1,
+            ],
             'work_start_at' => [
                 'type' => 'DATETIME',
                 'null' => TRUE,
@@ -85,6 +90,11 @@ class Migration_Create_orders extends CI_Migration
                 'type' => 'DATETIME',
                 'null' => TRUE,
             ],
+            'created_ip' => [
+				'type' => 'VARCHAR',
+				'constraint' => 128,
+				'null' => TRUE,
+			],
         ];
 
         $this->dbforge->add_field($fields);
@@ -118,4 +128,5 @@ class Migration_Create_orders extends CI_Migration
     {
         $this->dbforge->drop_table('orders', TRUE);
     }
+    
 }
