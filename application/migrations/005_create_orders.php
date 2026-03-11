@@ -22,6 +22,11 @@ class Migration_Create_orders extends CI_Migration
                 'unsigned' => TRUE,
                 'null' => FALSE,
             ],
+            'phone' => [
+				'type' => 'VARCHAR',
+				'constraint' => 100,
+				'null' => TRUE,
+			],
             'title' => [
                 'type' => 'VARCHAR',
                 'constraint' => 512,
