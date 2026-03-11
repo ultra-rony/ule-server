@@ -47,7 +47,7 @@ class WebhookYookassaController extends CI_Controller
             // Сохраняем транзакцию
             $this->user_transaction_model->add([
                 'id' => null,
-                'user_id' => 1,
+                'user_id' => $user['id'],
                 'type' => 'deposit',
                 'balance_before' => $balanceBefore,
                 'balance_after' => $balanceAfter,
