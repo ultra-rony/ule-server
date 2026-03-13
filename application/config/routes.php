@@ -10,6 +10,7 @@ $route[$v1.'users/get'] = 'UserController/getUser';
 $route[$v1.'users/transactions'] = 'TransactionController/index';
 
 $route[$v1.'orders/add'] = 'OrderController/index';
+$route[$v1.'orders'] = 'OrderController/orders';
 $route[$v1.'orders/categories'] = 'OrderCategoryController/index';
 
 $route[$v1.'fileupload'] = 'FileUploadController';

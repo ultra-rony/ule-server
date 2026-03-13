@@ -13,6 +13,59 @@ class OrderController extends CI_Controller
         $this->load->model('UserModel', 'user_model');
 	}
 
+    public function orders() {
+        $body = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $token = $body['token'] ?? null;
+        $page = $body['page'] ?? 0;
+
+        if ($token != null) {
+            $user = $this->user_model->getUserByToken($token);
+            $orders = $this->order_model->getOrders((int)$page);
+
+            $result = [];
+
+            foreach($orders as $order) {
+                $result[] = $this->sortOrder($order);
+            }
+            return $this->output->set_status_header(200)
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result, JSON_UNESCAPED_UNICODE));
+        }
+
+        $this->output->set_status_header(403)
+            ->set_content_type('application/json')
+            ->set_output(json_encode([
+                'success' => false,
+                'message' => 'Invalid token'
+            ], JSON_UNESCAPED_UNICODE));
+    }
+
+    private function sortOrder($order) {
+        return [
+            'id' => (int)$order['id'],
+            'customer' => [
+                'id' => (int)$order['user_id'],
+                'username' => $order['username'],
+                'image_url' => $order['user_image_url'],
+                'rating' => 0.0,
+                'total_number' => 0
+            ],
+            'category' => [
+                'id' => (int)$order['category_id'],
+                'category_name' => $order['category_name'],
+            ],
+            'title' => $order['title'],
+            'description' => $order['description'],
+            'amount' => (float)$order['amount'],
+            'image_url' => $order['image_url'],
+            'city' => $order['city'],
+            'address' => $order['address'],
+            'required_workers' => (int)$order['required_workers'],
+            'work_start_at' => $order['work_start_at'],
+        ];
+    }
+
     public function index() {
         $body = json_decode(file_get_contents('php://input'), true) ?? [];
 
