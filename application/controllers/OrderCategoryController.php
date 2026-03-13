@@ -13,6 +13,7 @@ class OrderCategoryController extends CI_Controller
     public function index() {
         $categories = $this->order_category_model->getCategories();
         foreach($categories as &$item) {
+            $item['id'] = (int)$item['id'];
             if ($item['price_per_hour'] != null) {
                 $item['price_per_hour'] = json_decode($item['price_per_hour'], JSON_UNESCAPED_UNICODE);
             }

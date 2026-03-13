@@ -23,7 +23,14 @@ class OrderController extends CI_Controller
         if ($token != null) {
             $user = $this->user_model->getUserByToken($token);
             if ($user != null) {
+                $workStartAt = $body['work_start_at'] ?? null;
+                $hours = $body['hours'] ?? null;
 
+                if ((int)$hours > 0 && $workStartAt) {
+                    $date = new DateTime($workStartAt);
+                    $date->modify("+{$hours} hours");
+                    $workEndAt = $date->format('Y-m-d H:i:s');
+                }
                 $order = [
                     'id' => null,
                     'user_id' => $user['id'],
@@ -31,7 +38,7 @@ class OrderController extends CI_Controller
                     'phone' => $phone,
                     'title' => $body['title'] ?? null,
                     'description' => $body['description'] ?? null,
-                    'image_urls' => $body['image_urls'] ?? null,
+                    'image_url' => $body['image_url'] ?? null,
                     'amount' => $body['amount'] ?? null,
                     'city' => $user['city'],
                     'address' => $body['address'] ?? null,
@@ -39,8 +46,9 @@ class OrderController extends CI_Controller
                     'longitude' => $body['longitude'] ?? null,
                     'required_workers' => $body['required_workers'] ?? null,
                     'status' => 1,
-                    'work_start_at' => $body['work_start_at'] ?? null,
-                    'work_end_at' => $body['work_end_at'] ?? null,
+                    'work_start_at' => $workStartAt,
+                    'work_end_at' => $workEndAt,
+                    'time_zone' => $body['time_zone'] ?? null,
                     'created_at' => $this->currentTime,
                     'created_ip' => $this->getClientIp(),
                 ];

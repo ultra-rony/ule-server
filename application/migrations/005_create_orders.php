@@ -36,7 +36,7 @@ class Migration_Create_orders extends CI_Migration
                 'type' => 'TEXT',
                 'null' => TRUE,
             ],
-            'image_urls' => [
+            'image_url' => [
                 'type' => 'TEXT',
                 'null' => TRUE,
             ],
@@ -77,6 +77,11 @@ class Migration_Create_orders extends CI_Migration
 				'type' => 'TINYINT',
 				'constraint' => '1',
                 'default' => 1,
+            ],
+            'time_zone' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'null' => TRUE,
             ],
             'work_start_at' => [
                 'type' => 'DATETIME',
