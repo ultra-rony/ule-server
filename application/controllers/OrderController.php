@@ -41,8 +41,41 @@ class OrderController extends CI_Controller
             ], JSON_UNESCAPED_UNICODE));
     }
 
-    private function sortOrder($order) {
-        return [
+    public function orderDetails($orderId) {
+        $body = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $token = $body['token'] ?? null;
+
+        if ($token != null) {
+            $user = $this->user_model->getUserByToken($token);
+            $order = $this->order_model->getOrder($orderId);
+
+            if ($order == null) {
+                return $this->output->set_status_header(404)
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode([
+                        'success' => false,
+                        'message' => 'Order not found'
+                    ], JSON_UNESCAPED_UNICODE));
+            }
+
+            $result = $this->sortOrder($order, true);
+
+            return $this->output->set_status_header(200)
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result, JSON_UNESCAPED_UNICODE));
+        }
+
+        $this->output->set_status_header(403)
+            ->set_content_type('application/json')
+            ->set_output(json_encode([
+                'success' => false,
+                'message' => 'Invalid token'
+            ], JSON_UNESCAPED_UNICODE));
+    }
+
+    private function sortOrder($order, $details = false) {
+        $sort = [
             'id' => (int)$order['id'],
             'customer' => [
                 'id' => (int)$order['user_id'],
@@ -64,6 +97,21 @@ class OrderController extends CI_Controller
             'required_workers' => (int)$order['required_workers'],
             'work_start_at' => $order['work_start_at'],
         ];
+        if ($details) {
+            $sort['latitude'] = (float)$order['latitude'];
+            $sort['longitude'] = (float)$order['longitude'];
+            $sort['work_end_at'] = $order['work_end_at'];
+            $sort['customer']['phone'] = $order['phone'];
+            $sort['status'] = (int)$order['status'];
+            $sort['hour'] = null;
+
+            if ($sort['work_start_at'] != null && $sort['work_end_at'] != null) {
+                $start = strtotime($sort['work_start_at']);
+                $end = strtotime($sort['work_end_at']);
+                $sort['hour'] = (int)(($end - $start) / 3600);
+            }
+        }
+        return $sort;
     }
 
     public function index() {
