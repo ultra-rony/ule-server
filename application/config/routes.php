@@ -14,6 +14,8 @@ $route[$v1.'orders'] = 'OrderController/orders';
 $route[$v1.'orders/(:num)'] = 'OrderController/orderDetails/$1';
 $route[$v1.'orders/categories'] = 'OrderCategoryController/index';
 
+$route[$v1.'orders/history'] = 'HistoryController/history';
+
 $route[$v1.'fileupload'] = 'FileUploadController';
 
 $route['webhook/yookassa'] = 'WebhookYookassaController/index';
